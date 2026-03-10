@@ -1,8 +1,17 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function DonatePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DonatePageContent />
+    </Suspense>
+  );
+}
+
+function DonatePageContent() {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
 
