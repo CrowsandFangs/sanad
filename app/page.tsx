@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { getTotalDonations } from "@/lib/students";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { total, count } = await getTotalDonations();
+  const formattedTotal = new Intl.NumberFormat("fr-FR", {
+    maximumFractionDigits: 0,
+  }).format(total);
+
   return (
     <main className="min-h-screen">
 
@@ -67,6 +73,18 @@ Découvrez leurs parcours et apportez votre soutien.
                     même lorsque les situations sont urgentes.
                   </p>
                 </div>
+              </div>
+
+              <div className="relative mt-6 border-t border-border-subtle/70 pt-5">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-text-muted">
+                  Total collecté
+                </p>
+                <p className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
+                  {formattedTotal} €
+                </p>
+                <p className="mt-2 text-sm text-text-muted">
+                  {count} contribution{count === 1 ? "" : "s"}
+                </p>
               </div>
             </div>
           </div>
